@@ -54,7 +54,10 @@ Tienda-maestra/
 ├── frontend/                 # Next.js application
 │   ├── app/                  # App router pages
 │   ├── components/           # React components
-│   └── lib/                  # Utilities
+│   ├── lib/                  # Utilities and Supabase client
+│   └── src/
+│       └── features/
+│           └── catalog/      # Feature-first catalog module (api, hooks, UI)
 ├── shared/                   # Shared modules
 │   ├── utils/                # Common utilities
 │   └── auth/
@@ -96,6 +99,36 @@ The auth module supports:
 1. Configure your SMTP settings in `.env`
 2. Users will receive a verification email after registration
 3. They must click the link before they can log in
+
+### Supabase
+
+The catalog feature is prepared to source data directly from Supabase:
+
+1. **Provision tables** – Run `frontend/lib/supabase/schema.sql` from the Supabase SQL editor or via CLI:
+   ```bash
+   npm install -g supabase
+   supabase login
+   supabase db push --file frontend/lib/supabase/schema.sql
+   ```
+2. **Seed demo content** (optional) with `frontend/lib/supabase/seed.sql`:
+   ```bash
+   supabase db push --file frontend/lib/supabase/seed.sql
+   ```
+3. **Set environment variables** inside `.env.local` / `.env`:
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL="https://YOUR-PROJECT.supabase.co"
+   NEXT_PUBLIC_SUPABASE_ANON_KEY="public-anon-key"
+   SUPABASE_SERVICE_ROLE_KEY="service-role-key" # keep server-side only
+   ```
+4. **Keep types in sync** – Update `frontend/lib/supabase/types.ts` after schema changes (see `frontend/lib/supabase/README.md`).
+5. **Use the feature** – Import from `src/features/catalog` (e.g., `useCatalogProducts`, `CatalogGrid`) to render live data using the shared Supabase clients in `frontend/lib/supabase`.
+
+### Catálogo de ejemplo
+
+- La ruta `/catalog` ya consume Supabase usando el enfoque feature-first.
+- Incluye búsqueda, filtros por categoría/estado y rangos de precio.
+- Si aún no configuras Supabase, verás un catálogo simulado (mock) para validar el diseño rápidamente.
+- Edita `frontend/app/catalog/page.tsx` o extiende los componentes en `src/features/catalog` para adaptar la experiencia de tu tienda.
 
 
 ## 📄 License
