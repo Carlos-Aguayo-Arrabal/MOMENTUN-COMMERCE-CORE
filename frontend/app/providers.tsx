@@ -5,6 +5,8 @@ import { ReactNode, createContext, useContext, useState, useCallback, useEffect 
 /**
  * Auth Context for managing authentication state
  */
+const authEnabled = process.env.NEXT_PUBLIC_AUTH_ENABLED === 'true';
+
 interface User {
   id: string;
   email: string;
@@ -84,6 +86,33 @@ export function useToast() {
   return context;
 }
 
+const demoUser: User = {
+  id: 'demo-user',
+  email: 'demo@tienda-maestra.com',
+  name: 'Demo Store Owner',
+  role: 'owner',
+};
+
+const demoWorkspaces: Workspace[] = [
+  {
+    id: 'ws-demo-1',
+    name: 'Tienda Principal',
+    slug: 'tienda-principal',
+    plan: 'pro',
+  },
+  {
+    id: 'ws-demo-2',
+    name: 'Pop-up Primavera',
+    slug: 'popup-primavera',
+    plan: 'starter',
+  },
+];
+
+const generateId = () =>
+  typeof crypto !== 'undefined' && 'randomUUID' in crypto
+    ? crypto.randomUUID()
+    : Math.random().toString(36).slice(2);
+
 /**
  * Main Providers Component
  */
@@ -103,6 +132,16 @@ export function Providers({ children }: { children: ReactNode }) {
   useEffect(() => {
     let isMounted = true;
     
+    if (!authEnabled) {
+      setUser(demoUser);
+      setWorkspaces(demoWorkspaces);
+      setCurrentWorkspace(demoWorkspaces[0]);
+      setIsLoading(false);
+      return () => {
+        isMounted = false;
+      };
+    }
+
     const checkAuth = async () => {
       try {
         const response = await fetch('/api/auth/me');
@@ -128,25 +167,37 @@ export function Providers({ children }: { children: ReactNode }) {
 
   // Auth Functions
   const login = useCallback(async (email: string, password: string) => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-      
-      const userData = await response.json();
-      setUser(userData.user);
-    } catch (error) {
-      throw error;
+    if (!authEnabled) {
+      setUser(prev => ({
+        id: prev?.id ?? generateId(),
+        email,
+        name: prev?.name ?? email.split('@')[0] ?? 'Demo user',
+        role: prev?.role ?? 'owner',
+      }));
+      return;
     }
+
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Login failed');
+    }
+    
+    const userData = await response.json();
+    setUser(userData.user);
   }, []);
 
   const logout = useCallback(async () => {
+    if (!authEnabled) {
+      setUser(null);
+      setCurrentWorkspace(null);
+      return;
+    }
+
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
       setUser(null);
@@ -157,22 +208,28 @@ export function Providers({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(async (email: string, password: string, name: string) => {
-    try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name }),
+    if (!authEnabled) {
+      setUser({
+        id: generateId(),
+        email,
+        name,
+        role: 'owner',
       });
-      
-      if (!response.ok) {
-        throw new Error('Registration failed');
-      }
-      
-      const userData = await response.json();
-      setUser(userData.user);
-    } catch (error) {
-      throw error;
+      return;
     }
+
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, name }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Registration failed');
+    }
+    
+    const userData = await response.json();
+    setUser(userData.user);
   }, []);
 
   // Workspace Functions
@@ -185,23 +242,30 @@ export function Providers({ children }: { children: ReactNode }) {
   }, [workspaces]);
 
   const createWorkspace = useCallback(async (name: string): Promise<Workspace> => {
-    try {
-      const response = await fetch('/api/workspaces', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to create workspace');
-      }
-      
-      const newWorkspace = await response.json();
-      setWorkspaces(prev => [...prev, newWorkspace]);
-      return newWorkspace;
-    } catch (error) {
-      throw error;
+    if (!authEnabled) {
+      const workspace: Workspace = {
+        id: generateId(),
+        name,
+        slug: name.toLowerCase().replace(/\s+/g, '-'),
+        plan: 'custom',
+      };
+      setWorkspaces(prev => [...prev, workspace]);
+      return workspace;
     }
+
+    const response = await fetch('/api/workspaces', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to create workspace');
+    }
+    
+    const newWorkspace = await response.json();
+    setWorkspaces(prev => [...prev, newWorkspace]);
+    return newWorkspace;
   }, []);
 
   // Toast Functions

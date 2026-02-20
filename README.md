@@ -100,6 +100,8 @@ The auth module supports:
 2. Users will receive a verification email after registration
 3. They must click the link before they can log in
 
+**Demo Mode:** Set `NEXT_PUBLIC_AUTH_ENABLED=false` (default) to run the UI without a backend. The provider uses datos mock para mostrar sesión y workspaces en local/Vercel. Cuando cuentes con tu API real, cámbialo a `true` y apunta `NEXT_PUBLIC_API_URL` a tu backend.
+
 ### Supabase
 
 The catalog feature is prepared to source data directly from Supabase:
