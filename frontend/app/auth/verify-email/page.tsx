@@ -35,7 +35,7 @@ function VerifyEmailContent() {
 
         if (response.ok) {
           setStatus('success');
-          setMessage('Your email has been verified successfully!');
+          setMessage('Verificamos tu correo exitosamente.');
           
           // Redirect to dashboard after 3 seconds
           setTimeout(() => {
@@ -43,11 +43,11 @@ function VerifyEmailContent() {
           }, 3000);
         } else {
           setStatus('error');
-          setMessage(data.message || 'Failed to verify email. The link may have expired.');
+          setMessage(data.message || 'No pudimos verificar tu correo. Puede que el enlace haya expirado.');
         }
       } catch (error) {
         setStatus('error');
-        setMessage('An error occurred while verifying your email.');
+        setMessage('Ocurrió un error al verificar tu correo.');
       }
     };
 
@@ -69,10 +69,10 @@ function VerifyEmailContent() {
       });
 
       if (response.ok) {
-        setMessage('If an unverified account exists, a new verification email has been sent.');
+        setMessage('Si existe una cuenta sin verificar, enviamos un nuevo correo con el enlace.');
       }
     } catch (error) {
-      setMessage('Failed to resend verification email.');
+      setMessage('No pudimos reenviar el correo de verificación.');
     } finally {
       setIsResending(false);
     }
@@ -88,7 +88,7 @@ function VerifyEmailContent() {
       <div className="text-center mb-8">
         <Link href="/" className="inline-flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500" />
-          <span className="font-bold text-2xl text-gray-900">SaaS App</span>
+          <span className="font-bold text-2xl text-gray-900">Tienda Maestra</span>
         </Link>
       </div>
 
@@ -100,10 +100,10 @@ function VerifyEmailContent() {
               <Loader2 className="w-8 h-8 text-primary-500 animate-spin" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              Verifying your email...
+              Verificando tu correo...
             </h1>
             <p className="text-gray-600">
-              Please wait while we verify your email address.
+              Espera un momento mientras confirmamos tu dirección.
             </p>
           </>
         )}
@@ -114,19 +114,19 @@ function VerifyEmailContent() {
               <CheckCircle className="w-8 h-8 text-green-500" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              Email Verified!
+              ¡Correo verificado!
             </h1>
             <p className="text-gray-600 mb-6">
               {message}
             </p>
             <p className="text-sm text-gray-500 mb-4">
-              Redirecting to dashboard...
+              Redirigiendo al panel...
             </p>
             <Link
               href="/dashboard"
               className="inline-flex items-center justify-center gap-2 bg-primary-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-600 transition-colors"
             >
-              Go to Dashboard
+              Ir al panel
             </Link>
           </>
         )}
@@ -137,7 +137,7 @@ function VerifyEmailContent() {
               <XCircle className="w-8 h-8 text-red-500" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              Verification Failed
+              No pudimos verificar el correo
             </h1>
             <p className="text-gray-600 mb-6">
               {message}
@@ -146,14 +146,14 @@ function VerifyEmailContent() {
             {/* Resend form */}
             <div className="border-t border-gray-100 pt-6 mt-6">
               <p className="text-sm text-gray-600 mb-4">
-                Need a new verification link?
+                ¿Necesitas un nuevo enlace?
               </p>
               <form onSubmit={handleResendVerification} className="space-y-4">
                 <input
                   type="email"
                   value={resendEmail}
                   onChange={handleEmailChange}
-                  placeholder="Enter your email"
+                  placeholder="Introduce tu correo"
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
@@ -162,7 +162,7 @@ function VerifyEmailContent() {
                   disabled={isResending}
                   className="w-full bg-primary-500 text-white py-3 rounded-lg font-medium hover:bg-primary-600 transition-colors disabled:opacity-50"
                 >
-                  {isResending ? 'Sending...' : 'Resend Verification Email'}
+                  {isResending ? 'Enviando...' : 'Reenviar correo de verificación'}
                 </button>
               </form>
             </div>
@@ -172,7 +172,7 @@ function VerifyEmailContent() {
                 href="/auth/login"
                 className="text-primary-500 hover:text-primary-600 font-medium"
               >
-                Back to Login
+                Volver al inicio de sesión
               </Link>
             </div>
           </>
@@ -184,10 +184,10 @@ function VerifyEmailContent() {
               <Mail className="w-8 h-8 text-yellow-500" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              Check Your Email
+              Revisa tu correo
             </h1>
             <p className="text-gray-600 mb-6">
-              We sent you a verification link. Please check your inbox and click the link to verify your email address.
+              Te enviamos un enlace de verificación. Revisa tu bandeja y haz clic para confirmar tu correo.
             </p>
             
             {/* Resend form */}
@@ -200,7 +200,7 @@ function VerifyEmailContent() {
                   type="email"
                   value={resendEmail}
                   onChange={handleEmailChange}
-                  placeholder="Enter your email"
+                  placeholder="Introduce tu correo"
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
@@ -209,7 +209,7 @@ function VerifyEmailContent() {
                   disabled={isResending}
                   className="w-full bg-primary-500 text-white py-3 rounded-lg font-medium hover:bg-primary-600 transition-colors disabled:opacity-50"
                 >
-                  {isResending ? 'Sending...' : 'Resend Verification Email'}
+                  {isResending ? 'Enviando...' : 'Reenviar correo de verificación'}
                 </button>
               </form>
             </div>
@@ -219,7 +219,7 @@ function VerifyEmailContent() {
                 href="/auth/login"
                 className="text-primary-500 hover:text-primary-600 font-medium"
               >
-                Back to Login
+                Volver al inicio de sesión
               </Link>
             </div>
           </>
@@ -235,7 +235,7 @@ function LoadingFallback() {
       <div className="text-center mb-8">
         <div className="inline-flex items-center gap-2">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500" />
-          <span className="font-bold text-2xl text-gray-900">SaaS App</span>
+          <span className="font-bold text-2xl text-gray-900">Tienda Maestra</span>
         </div>
       </div>
       <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
@@ -243,7 +243,7 @@ function LoadingFallback() {
           <Loader2 className="w-8 h-8 text-primary-500 animate-spin" />
         </div>
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          Loading...
+          Cargando...
         </h1>
       </div>
     </div>

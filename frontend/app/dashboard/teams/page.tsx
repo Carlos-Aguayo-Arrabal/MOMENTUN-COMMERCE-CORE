@@ -31,7 +31,7 @@ const teamMembers: TeamMember[] = [
     avatar: 'SC',
     role: 'owner',
     status: 'active',
-    joinedAt: 'Jan 2024',
+    joinedAt: 'Ene 2024',
   },
   {
     id: '2',
@@ -53,14 +53,20 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: '4',
-    name: 'alex@example.com',
+    name: 'Alex Rivera',
     email: 'alex@example.com',
     avatar: 'AR',
     role: 'member',
     status: 'pending',
-    joinedAt: 'Pending',
+    joinedAt: 'Pendiente',
   },
 ];
+
+const roleLabels: Record<TeamMember['role'], string> = {
+  owner: 'Propietaria',
+  admin: 'Administradora',
+  member: 'Miembro',
+};
 
 export default function TeamsPage() {
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -124,7 +130,7 @@ export default function TeamsPage() {
     };
     return (
       <span className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${styles[role]}`}>
-        {role}
+        {roleLabels[role]}
       </span>
     );
   };
@@ -132,12 +138,12 @@ export default function TeamsPage() {
   return (
     <DashboardLayout>
       <div className="space-y-8">
-        {/* Header */}
+        {/* Encabezado */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Team Members</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Equipo</h1>
             <p className="text-gray-600 mt-1">
-              Manage your team and their permissions
+              Gestiona tu equipo y los permisos de cada rol
             </p>
           </div>
           <button
@@ -145,7 +151,7 @@ export default function TeamsPage() {
             className="flex items-center gap-2 bg-primary-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-600 transition-colors"
           >
             <Plus className="w-5 h-5" />
-            Invite Member
+            Invitar miembro
           </button>
         </div>
 
@@ -160,7 +166,7 @@ export default function TeamsPage() {
                 <p className="text-2xl font-bold text-gray-900">
                   {teamMembers.filter(m => m.status === 'active').length}
                 </p>
-                <p className="text-sm text-gray-500">Active Members</p>
+                <p className="text-sm text-gray-500">Miembros activos</p>
               </div>
             </div>
           </div>
@@ -173,7 +179,7 @@ export default function TeamsPage() {
                 <p className="text-2xl font-bold text-gray-900">
                   {teamMembers.filter(m => m.status === 'pending').length}
                 </p>
-                <p className="text-sm text-gray-500">Pending Invites</p>
+                <p className="text-sm text-gray-500">Invitaciones pendientes</p>
               </div>
             </div>
           </div>
@@ -186,7 +192,7 @@ export default function TeamsPage() {
                 <p className="text-2xl font-bold text-gray-900">
                   {teamMembers.filter(m => m.role === 'admin' || m.role === 'owner').length}
                 </p>
-                <p className="text-sm text-gray-500">Admins</p>
+                <p className="text-sm text-gray-500">Administradores</p>
               </div>
             </div>
           </div>
@@ -195,7 +201,7 @@ export default function TeamsPage() {
         {/* Team List */}
         <div className="bg-white rounded-xl border border-gray-100">
           <div className="px-6 py-4 border-b border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900">All Members</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Todos los miembros</h3>
           </div>
           <div className="divide-y divide-gray-100">
             {teamMembers?.length > 0 ? (
@@ -220,7 +226,7 @@ export default function TeamsPage() {
                     {getRoleBadge(member.role)}
                     {member.status === 'pending' && (
                       <span className="px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
-                        Pending
+                        Pendiente
                       </span>
                     )}
                     <span className="text-sm text-gray-500">{member.joinedAt}</span>
@@ -238,14 +244,14 @@ export default function TeamsPage() {
                             className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                           >
                             <Shield className="w-4 h-4" />
-                            Make Admin
+                            Convertir en admin
                           </button>
                           <button
                             onClick={() => handleChangeRole(member.id, 'member')}
                             className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
                           >
                             <UserMinus className="w-4 h-4" />
-                            Make Member
+                            Convertir en miembro
                           </button>
                           <hr className="my-1" />
                           <button
@@ -253,7 +259,7 @@ export default function TeamsPage() {
                             className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
                           >
                             <Trash2 className="w-4 h-4" />
-                            Remove
+                            Eliminar
                           </button>
                         </div>
                       )}
@@ -264,7 +270,7 @@ export default function TeamsPage() {
             ) : (
               <div className="px-6 py-12 text-center">
                 <Users className="w-12 h-12 text-gray-300 mx-auto mb-2" />
-                <p className="text-gray-500">No team members yet</p>
+                <p className="text-gray-500">Todavía no hay miembros</p>
               </div>
             )}
           </div>
@@ -274,11 +280,11 @@ export default function TeamsPage() {
         {showInviteModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-xl p-6 w-full max-w-md animate-scale-in">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Invite Team Member</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Invitar a un miembro</h2>
               <form onSubmit={handleInvite} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
+                    Correo electrónico
                   </label>
                   <input
                     type="email"
@@ -291,14 +297,14 @@ export default function TeamsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Role
+                    Rol
                   </label>
                   <select
                     value={inviteRole}
                     onChange={handleRoleChange}
                     className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   >
-                    <option value="member">Member</option>
+                    <option value="member">Miembro</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>
@@ -308,13 +314,13 @@ export default function TeamsPage() {
                     onClick={closeInviteModal}
                     className="flex-1 px-4 py-2 border border-gray-200 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
                   >
-                    Cancel
+                    Cancelar
                   </button>
                   <button
                     type="submit"
                     className="flex-1 px-4 py-2 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors"
                   >
-                    Send Invite
+                    Enviar invitación
                   </button>
                 </div>
               </form>

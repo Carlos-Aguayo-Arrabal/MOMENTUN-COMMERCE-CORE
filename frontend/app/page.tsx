@@ -5,33 +5,33 @@ export default function HomePage() {
   const features = [
     {
       icon: Shield,
-      title: 'Authentication',
-      description: 'Secure login, registration, and OAuth integration out of the box.',
+      title: 'Autenticación',
+      description: 'Inicio de sesión seguro, registro y OAuth sin configurar nada.',
     },
     {
       icon: CreditCard,
-      title: 'Payments',
-      description: 'Stripe-powered billing with subscriptions and invoicing.',
+      title: 'Pagos',
+      description: 'Facturación con Stripe, suscripciones y cobranzas automatizadas.',
     },
     {
       icon: Building2,
       title: 'Multi-tenant',
-      description: 'Workspaces with isolated data and flexible permissions.',
+      description: 'Workspaces aislados con permisos flexibles por equipo.',
     },
     {
       icon: Users,
-      title: 'Team Management',
-      description: 'Invite team members, manage roles, and collaborate.',
+      title: 'Gestión de equipos',
+      description: 'Invita colaboradores, define roles y colabora en tiempo real.',
     },
     {
       icon: BarChart3,
-      title: 'Dashboard',
-      description: 'Beautiful analytics and reporting dashboards.',
+      title: 'Panel de insights',
+      description: 'Analíticas claras y reportes accionables para tu negocio.',
     },
     {
       icon: Zap,
-      title: 'High Performance',
-      description: 'Built with Next.js 14 and optimized for speed.',
+      title: 'Alto rendimiento',
+      description: 'Construido con Next.js 14 y optimizado para escalar.',
     },
   ];
 
@@ -43,20 +43,20 @@ export default function HomePage() {
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500" />
-              <span className="font-bold text-xl">SaaS App</span>
+              <span className="font-bold text-xl">Tienda Maestra</span>
             </div>
             <div className="flex items-center gap-4">
               <Link
                 href="/auth/login"
                 className="text-gray-600 hover:text-gray-900 font-medium"
               >
-                Sign in
+                Iniciar sesión
               </Link>
               <Link
                 href="/auth/register"
                 className="bg-primary-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-600 transition-colors"
               >
-                Get Started
+                Probar ahora
               </Link>
             </div>
           </div>
@@ -71,25 +71,24 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 animate-fade-in">
-              Build Your SaaS
-              <span className="gradient-text block mt-2">Faster Than Ever</span>
+              Crea tu SaaS
+              <span className="gradient-text block mt-2">más rápido que nunca</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 animate-slide-up">
-              A production-ready SaaS boilerplate with authentication, payments, 
-              multi-tenancy, and everything you need to launch quickly.
+              Plantilla lista para producción con autenticación, pagos, multi-tenant y todo lo que necesitas para lanzar en semanas, no en meses.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
               <Link
                 href="/auth/register"
                 className="inline-flex items-center justify-center gap-2 bg-primary-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-600 transition-all hover:scale-105"
               >
-                Start Building <ArrowRight className="w-4 h-4" />
+                Comenzar ahora <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/dashboard"
                 className="inline-flex items-center justify-center gap-2 bg-white text-gray-700 px-6 py-3 rounded-lg font-medium border hover:bg-gray-50 transition-colors"
               >
-                View Demo
+                Ver demo
               </Link>
             </div>
           </div>
@@ -101,10 +100,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Everything You Need
+              Todo lo que tu SaaS necesita
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Skip months of boilerplate setup. Start with a fully-featured foundation.
+              Ahorra meses de configuración inicial y arranca con una base robusta y bien pensada.
             </p>
           </div>
 
@@ -132,16 +131,16 @@ export default function HomePage() {
       <section className="py-24 bg-gradient-to-br from-primary-500 to-accent-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            Ready to Launch Your SaaS?
+            ¿Listo para lanzar?
           </h2>
           <p className="text-xl text-primary-100 mb-8">
-            Join thousands of founders who&apos;ve accelerated their journey.
+            Únete a los fundadores que aceleran su lanzamiento con Tienda Maestra.
           </p>
           <Link
             href="/auth/register"
             className="inline-flex items-center gap-2 bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
           >
-            Get Started Free <ArrowRight className="w-5 h-5" />
+            Probar gratis <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </section>
@@ -152,10 +151,10 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-2 mb-4 md:mb-0">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500" />
-              <span className="font-bold text-white">SaaS App</span>
+              <span className="font-bold text-white">Tienda Maestra</span>
             </div>
             <p className="text-sm">
-              © {new Date().getFullYear()} SaaS App. Built with SaaS Factory.
+              © {new Date().getFullYear()} Tienda Maestra. Desarrollado con SaaS Factory.
             </p>
           </div>
         </div>

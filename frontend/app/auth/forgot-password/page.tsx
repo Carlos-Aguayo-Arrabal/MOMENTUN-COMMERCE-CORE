@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { Mail, ArrowLeft, Loader2, CheckCircle } from 'lucide-react';
 
 const forgotPasswordSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().email('Introduce un correo válido'),
 });
 
 type ForgotPasswordForm = z.infer<typeof forgotPasswordSchema>;
@@ -50,7 +50,7 @@ export default function ForgotPasswordPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500" />
-            <span className="font-bold text-2xl text-gray-900">SaaS App</span>
+            <span className="font-bold text-2xl text-gray-900">Tienda Maestra</span>
           </Link>
         </div>
 
@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
           {!isSubmitted ? (
             <>
               <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
-                Forgot password?
+                ¿Olvidaste tu contraseña?
               </h1>
               <p className="text-gray-600 text-center mb-8">
                 No worries, we&apos;ll send you reset instructions.
@@ -92,10 +92,10 @@ export default function ForgotPasswordPage() {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
+                      Enviando...
                     </>
                   ) : (
-                    'Reset password'
+                    'Recuperar contraseña'
                   )}
                 </button>
               </form>
@@ -106,10 +106,10 @@ export default function ForgotPasswordPage() {
                 <CheckCircle className="w-8 h-8 text-green-500" />
               </div>
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                Check your email
+                Revisa tu correo
               </h1>
               <p className="text-gray-600 mb-6">
-                If an account exists with that email, we sent you a password reset link.
+                Si existe una cuenta con ese correo, te enviamos un enlace para restablecer la contraseña.
               </p>
               <p className="text-sm text-gray-500">
                 Didn&apos;t receive the email?{' '}
@@ -117,7 +117,7 @@ export default function ForgotPasswordPage() {
                   onClick={() => setIsSubmitted(false)}
                   className="text-primary-500 hover:text-primary-600 font-medium"
                 >
-                  Click to resend
+                  Haz clic para reenviar
                 </button>
               </p>
             </div>
@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
               className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to login
+              Volver al inicio de sesión
             </Link>
           </div>
         </div>

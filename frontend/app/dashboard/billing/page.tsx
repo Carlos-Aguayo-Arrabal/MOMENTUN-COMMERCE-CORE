@@ -17,51 +17,51 @@ interface PricingPlan {
 const plans: PricingPlan[] = [
   {
     id: 'basic',
-    name: 'Basic',
+    name: 'Básico',
     price: 9,
-    interval: 'month',
-    description: 'Perfect for getting started',
+    interval: 'mes',
+    description: 'Ideal para probar Tienda Maestra',
     features: [
-      '5 team members',
-      '10 projects',
-      '5GB storage',
-      'Basic analytics',
-      'Email support',
+      'Hasta 5 miembros',
+      '10 proyectos activos',
+      '5GB de almacenamiento',
+      'Analíticas básicas',
+      'Soporte por correo',
     ],
   },
   {
     id: 'pro',
     name: 'Pro',
     price: 29,
-    interval: 'month',
-    description: 'Best for growing teams',
+    interval: 'mes',
+    description: 'El favorito de los equipos que crecen',
     features: [
-      '25 team members',
-      'Unlimited projects',
-      '100GB storage',
-      'Advanced analytics',
-      'Priority support',
-      'Custom integrations',
-      'API access',
+      '25 miembros del equipo',
+      'Proyectos ilimitados',
+      '100GB de almacenamiento',
+      'Analíticas avanzadas',
+      'Soporte prioritario',
+      'Integraciones personalizadas',
+      'Acceso a la API',
     ],
     popular: true,
   },
   {
     id: 'enterprise',
-    name: 'Enterprise',
+    name: 'Empresarial',
     price: 99,
-    interval: 'month',
-    description: 'For large organizations',
+    interval: 'mes',
+    description: 'Para organizaciones con alto volumen',
     features: [
-      'Unlimited team members',
-      'Unlimited projects',
-      'Unlimited storage',
-      'Custom analytics',
-      '24/7 phone support',
-      'Custom integrations',
-      'API access',
-      'SLA guarantee',
-      'Dedicated manager',
+      'Miembros ilimitados',
+      'Proyectos ilimitados',
+      'Almacenamiento ilimitado',
+      'Analíticas a medida',
+      'Soporte 24/7',
+      'Integraciones personalizadas',
+      'Acceso a la API',
+      'SLA garantizado',
+      'Customer success dedicado',
     ],
   },
 ];
@@ -74,11 +74,17 @@ interface Invoice {
 }
 
 const invoices: Invoice[] = [
-  { id: 'INV-001', date: 'Dec 1, 2024', amount: '$29.00', status: 'paid' },
-  { id: 'INV-002', date: 'Nov 1, 2024', amount: '$29.00', status: 'paid' },
-  { id: 'INV-003', date: 'Oct 1, 2024', amount: '$29.00', status: 'paid' },
-  { id: 'INV-004', date: 'Sep 1, 2024', amount: '$29.00', status: 'paid' },
+  { id: 'FAC-001', date: '1 Dic 2024', amount: '$29.00', status: 'paid' },
+  { id: 'FAC-002', date: '1 Nov 2024', amount: '$29.00', status: 'paid' },
+  { id: 'FAC-003', date: '1 Oct 2024', amount: '$29.00', status: 'paid' },
+  { id: 'FAC-004', date: '1 Sep 2024', amount: '$29.00', status: 'paid' },
 ];
+
+const invoiceStatusLabels: Record<Invoice['status'], string> = {
+  paid: 'Pagada',
+  pending: 'Pendiente',
+  failed: 'Fallida',
+};
 
 export default function BillingPage() {
   const [currentPlan] = useState('pro');
@@ -100,34 +106,34 @@ export default function BillingPage() {
   return (
     <DashboardLayout>
       <div className="space-y-8">
-        {/* Header */}
+        {/* Encabezado */}
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Billing & Plans</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Planes y facturación</h1>
           <p className="text-gray-600 mt-1">
-            Manage your subscription and billing information
+            Administra tu suscripción y la información de cobro
           </p>
         </div>
 
-        {/* Current Plan */}
+        {/* Plan actual */}
         <div className="bg-gradient-to-r from-primary-500 to-accent-500 rounded-xl p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-primary-100 text-sm">Current Plan</p>
-              <h2 className="text-2xl font-bold mt-1">Pro Plan</h2>
+              <p className="text-primary-100 text-sm uppercase tracking-wide">Plan actual</p>
+              <h2 className="text-2xl font-bold mt-1">Plan Pro</h2>
               <p className="text-primary-100 mt-2">
-                Your next billing date is January 1, 2025
+                Próxima factura: 1 de enero de 2025
               </p>
             </div>
             <div className="text-right">
               <p className="text-4xl font-bold">$29</p>
-              <p className="text-primary-100">/month</p>
+              <p className="text-primary-100">/mes</p>
             </div>
           </div>
         </div>
 
-        {/* Payment Method */}
+        {/* Método de pago */}
         <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Method</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Método de pago</h3>
           <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
             <div className="flex items-center gap-4">
               <div className="w-12 h-8 bg-gradient-to-r from-blue-600 to-blue-800 rounded flex items-center justify-center">
@@ -135,11 +141,11 @@ export default function BillingPage() {
               </div>
               <div>
                 <p className="font-medium text-gray-900">•••• •••• •••• 4242</p>
-                <p className="text-sm text-gray-500">Expires 12/2025</p>
+                <p className="text-sm text-gray-500">Expira 12/2025</p>
               </div>
             </div>
             <button className="text-primary-500 hover:text-primary-600 font-medium text-sm">
-              Update
+              Actualizar
             </button>
           </div>
         </div>
@@ -147,7 +153,7 @@ export default function BillingPage() {
         {/* Plans */}
         <div className="bg-white rounded-xl border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">Available Plans</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Planes disponibles</h3>
             <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
               <button
                 onClick={toggleBilling}
@@ -155,7 +161,7 @@ export default function BillingPage() {
                   !isAnnual ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600'
                 }`}
               >
-                Monthly
+                Mensual
               </button>
               <button
                 onClick={toggleBilling}
@@ -163,8 +169,8 @@ export default function BillingPage() {
                   isAnnual ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600'
                 }`}
               >
-                Annual
-                <span className="ml-1 text-xs text-green-600">Save 20%</span>
+                Anual
+                <span className="ml-1 text-xs text-green-600">Ahorra 20%</span>
               </button>
             </div>
           </div>
@@ -182,7 +188,7 @@ export default function BillingPage() {
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="bg-primary-500 text-white text-xs font-medium px-3 py-1 rounded-full">
-                      Most Popular
+                      Más popular
                     </span>
                   </div>
                 )}
@@ -216,7 +222,7 @@ export default function BillingPage() {
                       : 'bg-primary-500 text-white hover:bg-primary-600'
                   }`}
                 >
-                  {plan.id === currentPlan ? 'Current Plan' : 'Upgrade'}
+                  {plan.id === currentPlan ? 'Plan actual' : 'Actualizar plan'}
                 </button>
               </div>
             ))}
@@ -226,7 +232,7 @@ export default function BillingPage() {
         {/* Invoices */}
         <div className="bg-white rounded-xl border border-gray-100">
           <div className="px-6 py-4 border-b border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900">Invoice History</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Historial de facturas</h3>
           </div>
           <div className="divide-y divide-gray-100">
             {invoices?.length > 0 ? (
@@ -255,7 +261,7 @@ export default function BillingPage() {
                           : 'bg-red-100 text-red-700'
                       }`}
                     >
-                      {invoice.status}
+                       {invoiceStatusLabels[invoice.status]}
                     </span>
                     <button
                       onClick={() => handleDownloadInvoice(invoice.id)}
@@ -269,7 +275,7 @@ export default function BillingPage() {
             ) : (
               <div className="px-6 py-12 text-center">
                 <AlertCircle className="w-12 h-12 text-gray-300 mx-auto mb-2" />
-                <p className="text-gray-500">No invoices yet</p>
+                <p className="text-gray-500">Aún no hay facturas</p>
               </div>
             )}
           </div>

@@ -184,7 +184,7 @@ export function Providers({ children }: { children: ReactNode }) {
     });
     
     if (!response.ok) {
-      throw new Error('Login failed');
+      throw new Error('No pudimos iniciar sesión');
     }
     
     const userData = await response.json();
@@ -203,7 +203,7 @@ export function Providers({ children }: { children: ReactNode }) {
       setUser(null);
       setCurrentWorkspace(null);
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error('No pudimos cerrar sesión:', error);
     }
   }, []);
 
@@ -225,7 +225,7 @@ export function Providers({ children }: { children: ReactNode }) {
     });
     
     if (!response.ok) {
-      throw new Error('Registration failed');
+      throw new Error('No pudimos crear tu cuenta');
     }
     
     const userData = await response.json();
@@ -260,7 +260,7 @@ export function Providers({ children }: { children: ReactNode }) {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to create workspace');
+      throw new Error('No pudimos crear el workspace');
     }
     
     const newWorkspace = await response.json();
