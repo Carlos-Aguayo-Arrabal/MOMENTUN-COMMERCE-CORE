@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { catalogService } from '../services/catalogService';
 import type { CatalogFilters, CatalogProduct, CatalogState } from '../types';
 import { filterMockProducts } from '../mocks';
+import { isSupabaseConfigured } from '../utils/env';
 
 const createInitialState = (filters: CatalogFilters): CatalogState => ({
   products: [],
@@ -13,9 +14,7 @@ const createInitialState = (filters: CatalogFilters): CatalogState => ({
   filters,
 });
 
-const isSupabaseConfigured = Boolean(
-  process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+const supabaseReady = isSupabaseConfigured();
 
 export const useCatalogProducts = (initialFilters: CatalogFilters = {}) => {
   const filters = useMemo(() => ({ ...initialFilters }), [initialFilters]);
@@ -24,7 +23,7 @@ export const useCatalogProducts = (initialFilters: CatalogFilters = {}) => {
   const loadProducts = useCallback(async () => {
     setState(prev => ({ ...prev, isLoading: true, error: undefined }));
 
-    if (!isSupabaseConfigured) {
+    if (!supabaseReady) {
       const demoProducts = filterMockProducts(filters);
       setState({ products: demoProducts, isLoading: false, error: undefined, filters });
       return;
@@ -43,7 +42,7 @@ export const useCatalogProducts = (initialFilters: CatalogFilters = {}) => {
     let isMounted = true;
     setState(createInitialState(filters));
 
-    if (!isSupabaseConfigured) {
+    if (!supabaseReady) {
       const demoProducts = filterMockProducts(filters);
       setState({ products: demoProducts, isLoading: false, error: undefined, filters });
     } else {

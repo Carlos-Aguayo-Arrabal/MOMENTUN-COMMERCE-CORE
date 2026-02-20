@@ -180,3 +180,6 @@ export const filterMockProducts = (filters: CatalogFilters): CatalogProduct[] =>
 
   return result.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 };
+
+export const getMockProductBySlug = (slug: string): CatalogProduct | null =>
+  mockProducts.find(product => product.slug === slug) ?? null;

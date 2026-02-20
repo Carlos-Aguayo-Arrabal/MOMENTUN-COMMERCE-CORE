@@ -48,5 +48,5 @@ supabase gen types typescript --project-id <id> --schema public > frontend/lib/s
 
 - `getSupabaseBrowserClient()` se usa en hooks o componentes cliente.
 - `createSupabaseServiceRoleClient()` queda reservado para rutas API / server actions.
-- El feature `src/features/catalog` ya consume estos helpers (`catalogApi`).
+- El feature `src/features/catalog` ya consume estos helpers (`catalogApi`) tanto para la grilla (`/catalog`) como para la vista detallada (`/catalog/[slug]`).
 - Mientras no definas las variables de entorno de Supabase, la UI mostrará datos simulados (mock) ubicados en `src/features/catalog/mocks.ts` para que puedas probar el flujo sin conexión real.

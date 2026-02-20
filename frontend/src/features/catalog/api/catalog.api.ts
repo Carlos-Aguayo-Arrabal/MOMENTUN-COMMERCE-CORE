@@ -79,6 +79,25 @@ export const catalogApi = {
     return data ? mapProduct(data as ProductWithCategory) : null;
   },
 
+  async getProductBySlug(slug: string): Promise<CatalogProduct | null> {
+    const supabase = getSupabaseBrowserClient();
+
+    const { data, error } = await supabase
+      .from('products')
+      .select('*, categories:category_id(*)')
+      .eq('slug', slug)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') {
+        return null;
+      }
+      throw new Error(error.message);
+    }
+
+    return data ? mapProduct(data as ProductWithCategory) : null;
+  },
+
   async listCategories(): Promise<CategoryRow[]> {
     const supabase = getSupabaseBrowserClient();
 

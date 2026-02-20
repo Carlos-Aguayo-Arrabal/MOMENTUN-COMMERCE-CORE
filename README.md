@@ -129,6 +129,7 @@ The catalog feature is prepared to source data directly from Supabase:
 - Incluye búsqueda, filtros por categoría/estado y rangos de precio.
 - Si aún no configuras Supabase, verás un catálogo simulado (mock) para validar el diseño rápidamente.
 - Edita `frontend/app/catalog/page.tsx` o extiende los componentes en `src/features/catalog` para adaptar la experiencia de tu tienda.
+- Cada producto tiene su página pública en `/catalog/[slug]`, donde se muestran detalles, galería y recomendaciones relacionadas.
 
 
 ## 📄 License

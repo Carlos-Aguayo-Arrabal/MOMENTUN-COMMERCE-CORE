@@ -6,6 +6,7 @@ import type { CategoryRow } from '@/lib/supabase';
 
 import { catalogService } from '../services/catalogService';
 import { mockCategories } from '../mocks';
+import { isSupabaseConfigured } from '../utils/env';
 
 interface CategoriesState {
   categories: CategoryRow[];
@@ -24,7 +25,7 @@ export const useCatalogCategories = () => {
     let isMounted = true;
     setState(prev => ({ ...prev, isLoading: true }));
 
-    if (!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)) {
+    if (!isSupabaseConfigured()) {
       setState({ categories: mockCategories, isLoading: false, error: undefined });
       return () => {
         isMounted = false;

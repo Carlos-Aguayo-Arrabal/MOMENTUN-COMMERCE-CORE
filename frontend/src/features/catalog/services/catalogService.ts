@@ -9,5 +9,8 @@ export const catalogService = {
   getProductById: (id: string): Promise<CatalogProduct | null> =>
     catalogApi.getProductById(id),
 
+  getProductBySlug: (slug: string): Promise<CatalogProduct | null> =>
+    catalogApi.getProductBySlug(slug),
+
   listCategories: () => catalogApi.listCategories(),
 };
